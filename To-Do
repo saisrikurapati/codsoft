@@ -1,0 +1,39 @@
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append({"task": task, "completed": False})
+
+    def remove_task(self, task_index):
+        if 0 <= task_index < len(self.tasks):
+            self.tasks.pop(task_index)
+
+    def mark_completed(self, task_index):
+        if 0 <= task_index < len(self.tasks):
+            self.tasks[task_index]["completed"] = True
+
+    def get_tasks(self):
+        return self.tasks
+
+if __name__ == "__main__":
+    todo = ToDoList()
+    test_operations = [
+        ("add", "Buy groceries"),
+        ("add", "Complete project"),
+        ("mark", 0),
+        ("remove", 1)
+    ]
+
+    for operation in test_operations:
+        if operation[0] == "add":
+            todo.add_task(operation[1])
+        elif operation[0] == "remove":
+            todo.remove_task(operation[1])
+        elif operation[0] == "mark":
+            todo.mark_completed(operation[1])
+
+    print("Final To-Do List:")
+    for idx, task in enumerate(todo.get_tasks()):
+        status = "✔" if task["completed"] else "✘"
+        print(f'{idx + 1}. [{status}] {task["task"]}')
